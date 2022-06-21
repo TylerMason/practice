@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import Header from './components/Header'
+import Tasks from './components/Tasks'
+import AddTask from './components/AddTask'
 
 function App() {
+
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      text: 'Doctor',
+      day: 'Feb 5 at 2',
+      reminder: true,
+    }
+  ])
+
+  const addTask = (task) => {
+    console.log(task)
+  }
+
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !==
+     id))
+  }
+
+  const toggleReminder = (id) => {
+    setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: !task.reminder } : task))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header title='Task'/>
+      <AddTask onAdd={addTask}/>
+      {tasks.length > 0 ? (
+        <Tasks tasks={tasks} onDelete=
+        {deleteTask} onToggle={toggleReminder}/>
+      ) : (
+        'No Tasks To Show')}
     </div>
   );
 }

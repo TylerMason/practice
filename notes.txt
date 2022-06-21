@@ -1,0 +1,3 @@
+everything can be looked at as a component
+function components with hooks is popular
+redux, state manager
